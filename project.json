@@ -1,0 +1,23 @@
+{
+  "overview": "Official website for the CSI (Computer Society of India) Student Chapter at Vignan Foundation for Science, Technology and Research University, Hyderabad. Features public-facing sections for events, team members, and a community gallery, plus an admin panel for content management.",
+  "features": [
+    "Hero section with CSI and college logos",
+    "About CSI chapter section",
+    "Events listing with dates and descriptions",
+    "Team roster with 17 pre-seeded members and their roles",
+    "Community gallery with image upload",
+    "Contact form with thank-you message",
+    "Admin panel with login to manage events, team members, and gallery images"
+  ],
+  "category": "organization-student-chapter",
+  "tags": [
+    "csi",
+    "student-chapter",
+    "university",
+    "events",
+    "gallery",
+    "admin-panel",
+    "vignan"
+  ],
+  "last_updated": "2026-04-08T18:52:32.678Z"
+}

@@ -1,0 +1,95 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type TeamMember = 
+ record {
+   branch: text;
+   id: MemberId;
+   image: ExternalBlob;
+   name: text;
+   registrationNo: text;
+   role: text;
+ };
+type MemberId = nat;
+type GalleryImage = 
+ record {
+   description: text;
+   id: GalleryId;
+   image: ExternalBlob;
+   title: text;
+   uploadedAt: Timestamp;
+ };
+type GalleryId = nat;
+type ExternalBlob = blob;
+type EventId = nat;
+type Event = 
+ record {
+   date: Timestamp;
+   description: text;
+   id: EventId;
+   imageUrl: text;
+   location: text;
+   title: text;
+ };
+type ContactSubmission = 
+ record {
+   email: text;
+   id: ContactId;
+   message: text;
+   name: text;
+   submittedAt: Timestamp;
+ };
+type ContactId = nat;
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  addEvent: (title: text, description: text, date: int, location: text,
+   imageUrl: text) -> (Event);
+  addGalleryImage: (title: text, description: text, image: ExternalBlob) ->
+   (GalleryImage);
+  addTeamMember: (name: text, registrationNo: text, branch: text, role: 
+   text, image: ExternalBlob) -> (TeamMember);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  deleteEvent: (id: EventId) -> (bool);
+  deleteGalleryImage: (id: GalleryId) -> (bool);
+  deleteTeamMember: (id: MemberId) -> (bool);
+  getCallerUserRole: () -> (UserRole) query;
+  getEvent: (id: EventId) -> (opt Event) query;
+  getTeamMember: (id: MemberId) -> (opt TeamMember) query;
+  isCallerAdmin: () -> (bool) query;
+  listContactSubmissions: () -> (vec ContactSubmission) query;
+  listEvents: () -> (vec Event) query;
+  listGalleryImages: () -> (vec GalleryImage) query;
+  listTeamMembers: () -> (vec TeamMember) query;
+  submitContactForm: (name: text, email: text, message: text) ->
+   (ContactSubmission);
+  updateEvent: (id: EventId, title: text, description: text, date: int,
+   location: text, imageUrl: text) -> (bool);
+  updateTeamMember: (id: MemberId, name: text, registrationNo: text, branch:
+   text, role: text, image: ExternalBlob) -> (bool);
+}

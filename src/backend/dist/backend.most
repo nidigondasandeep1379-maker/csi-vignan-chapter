@@ -1,0 +1,98 @@
+// Version: 1.0.0
+type ContactId__246256953 = EntityId__892221652;
+type ContactSubmission__93684224 =
+  {
+    email : Text;
+    id : ContactId__246256953;
+    message : Text;
+    name : Text;
+    submittedAt : Timestamp__306786231
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type EntityId__892221652 = Nat;
+type EventId__721739344 = EntityId__892221652;
+type Event__543096582 =
+  {
+    date : Timestamp__360002917;
+    description : Text;
+    id : EventId__721739344;
+    imageUrl : Text;
+    location : Text;
+    title : Text
+  };
+type ExternalBlob__246066408 = Blob;
+type GalleryId__774161295 = EntityId__892221652;
+type GalleryImage__1001354798 =
+  {
+    description : Text;
+    id : GalleryId__774161295;
+    image : ExternalBlob__246066408;
+    title : Text;
+    uploadedAt : Timestamp__643361263
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MemberId__101444670 = EntityId__892221652;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type TeamMember__16370082 =
+  {
+    branch : Text;
+    id : MemberId__101444670;
+    image : ExternalBlob__246066408;
+    name : Text;
+    registrationNo : Text;
+    role : Text
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__306786231 = Timestamp__301639476;
+type Timestamp__360002917 = Timestamp__301639476;
+type Timestamp__643361263 = Timestamp__301639476;
+type UserRole__1054455867 = {#admin; #guest; #user};
+actor {
+  stable var _nextEventId : Nat;
+  stable var _nextImageId : Nat;
+  stable var _nextMemberId : Nat;
+  stable var _nextSubmissionId : Nat;
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable contactSubmissions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactSubmission__93684224]];
+      var elementIndex : Nat__490723111
+    };
+  stable events :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Event__543096582]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryImages :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?GalleryImage__1001354798]];
+      var elementIndex : Nat__490723111
+    };
+  stable members :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?TeamMember__16370082]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextEventId : Nat;
+  stable var nextImageId : Nat;
+  stable var nextMemberId : Nat;
+  stable var nextSubmissionId : Nat
+};
